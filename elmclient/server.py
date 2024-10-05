@@ -8,7 +8,6 @@ import collections
 import datetime
 import logging
 import os.path
-import pickle
 import requests
 import socket
 import shutil
@@ -19,6 +18,7 @@ import urllib3
 from . import _app
 from . import utils
 from . import httpops
+import fickling
 
 logger = logging.getLogger(__name__)
 
@@ -299,7 +299,7 @@ class JazzTeamServer( httpops.HttpOperations_Mixin ):
                 os.makedirs(cachefolder,exist_ok=True)
                 if os.path.isfile(os.path.join(cachefolder,COOKIE_SAVE_FILE)):
                     with open(os.path.join(cachefolder,COOKIE_SAVE_FILE), 'rb') as f:
-                        result.cookies.update(pickle.load(f))
+                        result.cookies.update(fickling.load(f))
             else:
                 # remove any saved cookies from previous login
                 if os.path.isfile(os.path.join(cachefolder,COOKIE_SAVE_FILE)):
